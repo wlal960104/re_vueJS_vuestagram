@@ -4,9 +4,10 @@
     <div v-if="step === 0">
       <Post :data="a" v-for="(a,i) in data" :key="i"/> <!-- 한 개의 데이터만 props -->
     </div>
+
     <!-- 필터선택페이지 -->
     <div v-if="step === 1">
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
       <div class="filters">
         <div class="filter-1"></div>
         <div class="filter-1"></div>
@@ -18,9 +19,10 @@
 
     <!-- 글작성페이지 -->
     <div v-if="step === 2">
-      <div class="upload-image"></div>
+      <div class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
       <div class="write">
-        <textarea class="write-box">write!</textarea>
+        <textarea v-model="content" class="write-box">write!</textarea>
+        <input v-model="test" type="text"> {{test}}
       </div>
     </div>
   </div>
@@ -33,7 +35,8 @@ export default {
   name: 'Container',
   data () {
     return {
-
+      content : 'write!', // 사용자가 입력한 글
+      test : ''
     }
   },
   components : {
@@ -41,7 +44,14 @@ export default {
   },
   props : {
     data : Array,
-    step : Number
+    step : Number,
+    imgUrl : String,
+  },
+  watch : {
+    content (a) {
+      console.log('a > ', a)
+      this.$emit('write', a)
+    }
   }
 }
 </script>

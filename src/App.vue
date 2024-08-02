@@ -4,17 +4,18 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li @click="step++" v-if="step === 1">Next</li>
+      <li @click="publish" v-if="step === 2">발행</li>
     </ul>
     <img src="./assets/logo.png" class="logo"/>
   </div>
 
-  <Container :data="data" :step="step"/>
+  <Container :data="data" :step="step" :imgUrl="imgUrl" @write="content = $event"/>
   <button @click="more" v-if=" step===0 ">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input @change="upload" type="file" id="file" class="inputfile"/>
+      <input @change="upload" multiple accept="image/*" type="file" id="file" class="inputfile"/>
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
@@ -32,7 +33,9 @@ export default {
     return {
       data,
       moreNum: 0,
-      step: 0
+      step: 0,
+      imgUrl : '',
+      content : '',
     }
   },
   components: {
@@ -60,9 +63,25 @@ export default {
     },
     upload(e) {
       let file = e.target.files
+      this.imgUrl = URL.createObjectURL(file[0]); // 업로드한 이미지의 URL 생성
+      console.log('url > ',  this.imgUrl);
       this.step = 1; // 업로드 후 다음 페이지로 이동
-      let url = URL.createObjectURL(file[0]); // 업로드한 이미지의 URL 생성
-      console.log('url > ', url)
+    },
+    // 발행 버튼 클릭
+    publish () {
+      var newPost = {
+        name: "Kim Nana",
+        userImage: "https://picsum.photos/100?random=3",
+        postImage: this.imgUrl,
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: this.content,
+        filter: "perpetua"
+      };
+      this.data.unshift(newPost);
+      this.step = 0; // 메인페이지로 탭변경
+
     }
   }
 }
