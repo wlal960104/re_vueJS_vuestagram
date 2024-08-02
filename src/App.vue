@@ -49,8 +49,6 @@ export default {
         return;
       }
 
-      console.log('ajax 요청')
-
       axios.get(`https://codingapple1.github.io/vue/more${this.moreNum}.json`)
           .then((res) => {
             this.data.push(res.data);
@@ -64,7 +62,6 @@ export default {
     upload(e) {
       let file = e.target.files
       this.imgUrl = URL.createObjectURL(file[0]); // 업로드한 이미지의 URL 생성
-      console.log('url > ',  this.imgUrl);
       this.step = 1; // 업로드 후 다음 페이지로 이동
     },
     // 발행 버튼 클릭

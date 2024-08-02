@@ -21,7 +21,7 @@
     <div v-if="step === 2">
       <div class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
       <div class="write">
-        <textarea v-model="content" class="write-box">write!</textarea>
+        <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea>
         <input v-model="test" type="text"> {{test}}
       </div>
     </div>
@@ -47,12 +47,6 @@ export default {
     step : Number,
     imgUrl : String,
   },
-  watch : {
-    content (a) {
-      console.log('a > ', a)
-      this.$emit('write', a)
-    }
-  }
 }
 </script>
 
