@@ -25,7 +25,6 @@
 <script>
 import Container from "@/components/Container.vue";
 import data from "@/assets/data"
-import axios from 'axios'
 
 export default {
   name: 'App',
@@ -49,7 +48,9 @@ export default {
         return;
       }
 
-      axios.get(`https://codingapple1.github.io/vue/more${this.moreNum}.json`)
+      console.log('this > ', this);
+
+      this.axios.get(`https://codingapple1.github.io/vue/more${this.moreNum}.json`)
           .then((res) => {
             this.data.push(res.data);
             this.moreNum++;
@@ -80,6 +81,11 @@ export default {
       this.step = 0; // 메인페이지로 탭변경
 
     }
+  },
+  mounted() {
+    this.emitter.on('test', (data) => {
+      console.log('data > ', data)
+    })
   }
 }
 </script>

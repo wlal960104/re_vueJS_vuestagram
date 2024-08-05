@@ -1,6 +1,7 @@
 <template>
   <div :style="`background-image : url(${imgUrl})`" :class="`filter-item ${filterNm}`">
     <slot></slot>
+    <button @click="fire">버튼</button>
   </div>
 </template>
 
@@ -15,6 +16,12 @@ export default {
     return {
       msg: '안녕하세요'
     };
+  },
+  methods : {
+    fire () {
+      // 이벤트 발사
+      this.emitter.emit('test', '데이터')
+    }
   }
 }
 </script>
