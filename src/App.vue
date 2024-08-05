@@ -10,6 +10,8 @@
     <img src="./assets/logo.png" class="logo"/>
   </div>
 
+  <p> {{ $store.state.more }}</p>
+  <button @click="$store.dispatch('getData')">더보기 버튼</button>
   <!--<h4>이름: {{ $store.state.name }}</h4>-->
   <!--<button @click="$store.commit('changeNm')"> store 데이터 변경하기</button>-->
   <!--<h4> 나이: {{ $store.state.age }}</h4>-->

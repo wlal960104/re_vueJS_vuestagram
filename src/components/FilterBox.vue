@@ -22,7 +22,7 @@ export default {
       // 이벤트 발사 (필터이름 전송)
       this.emitter.emit('getFilterNm', this.filterNm)
     }
-  }
+  },
 }
 </script>
 
