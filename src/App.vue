@@ -10,15 +10,14 @@
     <img src="./assets/logo.png" class="logo"/>
   </div>
 
-  <p> methods : {{ now() }}</p>
-  <p> computed : {{ now2}}</p>
-  {{ counter }}
-  <button @click="counter++">버튼</button>
+  <h4> {{ 내이름 }}</h4>
+  <h4> {{ age }}</h4>
 
   <p> {{ $store.state.more }}</p>
   <button @click="$store.dispatch('getData')">더보기 버튼</button>
-  <!--<h4>이름: {{ $store.state.name }}</h4>-->
+  <h4>이름: {{ $store.state.name }}</h4>
   <!--<button @click="$store.commit('changeNm')"> store 데이터 변경하기</button>-->
+  <button @click="changeNm()"> store 데이터 변경하기</button>
   <!--<h4> 나이: {{ $store.state.age }}</h4>-->
   <!--<button @click="$store.commit('increaseAge', 10)"> 나이 변경하기</button>-->
 
@@ -38,6 +37,7 @@
 <script>
 import Container from "@/components/Container.vue";
 import data from "@/assets/data"
+import {mapMutations, mapState} from "vuex";
 
 export default {
   name: 'App',
@@ -94,12 +94,8 @@ export default {
       };
       this.data.unshift(newPost); // 새로운 요소를 배열의 맨 앞에 추가
       this.step = 0; // 메인페이지로 탭변경
-
     },
-    // 현재 시간 출력 (compted 와 비교)
-    now () {
-      return new Date()
-    }
+    ...mapMutations(['setMore', 'changeNm'])
   },
   mounted() {
     // emitter 는 여기에
@@ -107,10 +103,15 @@ export default {
       this.filterNm = data;
     })
   },
-  computed : {
-    now2() {
-      return new Date()
-    }
+  computed: {
+    // name() {
+    //   return this.$store.state.name
+    // },
+    // age() {
+    //   return this.$store.state.age
+    // },
+    ...mapState(['name', 'age']),
+    ...mapState({ 내이름 : 'name'})
   }
 }
 </script>
