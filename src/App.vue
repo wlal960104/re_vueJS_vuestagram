@@ -10,8 +10,14 @@
     <img src="./assets/logo.png" class="logo"/>
   </div>
 
+  <!--<h4>이름: {{ $store.state.name }}</h4>-->
+  <!--<button @click="$store.commit('changeNm')"> store 데이터 변경하기</button>-->
+  <!--<h4> 나이: {{ $store.state.age }}</h4>-->
+  <!--<button @click="$store.commit('increaseAge', 10)"> 나이 변경하기</button>-->
+
   <Container :data="data" :step="step" :imgUrl="imgUrl" @write="content = $event"/>
   <button @click="more" v-if=" step===0 ">더보기</button>
+
 
   <div class="footer">
     <ul class="footer-button-plus">

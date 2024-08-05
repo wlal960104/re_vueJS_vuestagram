@@ -4,9 +4,10 @@
       <div class="profile" :style="{ backgroundImage : `url(${data.userImage})`}"></div>
       <span class="profile-name">{{ data.name }}</span>
     </div>
-    <div :class="data.filter" class="post-body" :style="{ background : `url(${data.postImage})`}"></div>
+    <div @click="like" :class="data.filter" class="post-body" :style="{ background : `url(${data.postImage})`}"></div>
     <div class="post-content">
-      <p>{{ data.likes }} Likes</p> <!-- 슬롯으로 변경 가능 -->
+      <!--<p>{{ data.likes }} Likes</p> &lt;!&ndash; 슬롯으로 변경 가능 &ndash;&gt;-->
+      <p>{{ $store.state.likes }} Likes</p>
       <p><strong>{{ data.name }}</strong> {{ data.content }}</p>
       <p class="date">{{ data.date }}</p>
     </div>
@@ -18,6 +19,11 @@ export default {
   name : 'Post',
   props : {
     data : Object
+  },
+  methods : {
+    like () {
+      this.$store.commit('goLike');
+    }
   }
 }
 </script>

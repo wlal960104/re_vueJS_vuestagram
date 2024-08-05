@@ -50,7 +50,6 @@ export default {
     imgUrl : String,
   },
   mounted() {
-    console.log('Container.vue :: mounted');
     // mounted 가 실행되지 않더라도 emitter.on 은 실행된다.
     this.emitter.on('getFilterNm', (data) => {
       this.filterNm = data;
