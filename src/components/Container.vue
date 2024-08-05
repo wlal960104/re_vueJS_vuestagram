@@ -7,7 +7,7 @@
 
     <!-- 필터선택페이지 -->
     <div v-if="step === 1">
-      <div class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
+      <div :class="filterNm" class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
       <div class="filters">
         <FilterBox :imgUrl="imgUrl" v-for="(filter,i) in filter" :key="i" :filterNm="filter">
           <span style="color: blue"> {{ filter }} </span>
@@ -17,7 +17,7 @@
 
     <!-- 글작성페이지 -->
     <div v-if="step === 2">
-      <div class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
+      <div :class="filterNm" class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
       <div class="write">
         <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea>
       </div>
@@ -36,7 +36,8 @@ export default {
     return {
       content : 'write!', // 사용자가 입력한 글
       test : '',
-      filter
+      filter,
+      filterNm : ''
     }
   },
   components : {
@@ -48,6 +49,15 @@ export default {
     step : Number,
     imgUrl : String,
   },
+  mounted() {
+    console.log('Container.vue :: mounted');
+    // mounted 가 실행되지 않더라도 emitter.on 은 실행된다.
+    this.emitter.on('getFilterNm', (data) => {
+      this.filterNm = data;
+    })
+  },
+  updated() {
+  }
 }
 </script>
 

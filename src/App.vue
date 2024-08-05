@@ -35,6 +35,7 @@ export default {
       step: 0,
       imgUrl : '',
       content : '',
+      filterNm : '',
     }
   },
   components: {
@@ -75,7 +76,7 @@ export default {
         date: "May 15",
         liked: false,
         content: this.content,
-        filter: "perpetua"
+        filter: this.filterNm
       };
       this.data.unshift(newPost); // 새로운 요소를 배열의 맨 앞에 추가
       this.step = 0; // 메인페이지로 탭변경
@@ -83,8 +84,9 @@ export default {
     }
   },
   mounted() {
-    this.emitter.on('test', (data) => {
-      console.log('data > ', data)
+    // emitter 는 여기에
+    this.emitter.on('getFilterNm', (data) => {
+      this.filterNm = data;
     })
   }
 }

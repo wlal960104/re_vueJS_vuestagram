@@ -1,7 +1,6 @@
 <template>
-  <div :style="`background-image : url(${imgUrl})`" :class="`filter-item ${filterNm}`">
+  <div @click="clickFilter" :style="`background-image : url(${imgUrl})`" :class="`filter-item ${filterNm}`">
     <slot></slot>
-    <button @click="fire">버튼</button>
   </div>
 </template>
 
@@ -18,9 +17,12 @@ export default {
     };
   },
   methods : {
-    fire () {
-      // 이벤트 발사
-      this.emitter.emit('test', '데이터')
+    // 필터 사진 클릭
+    clickFilter () {
+      console.log('필터 클릭');
+      console.log('this > ', this.filterNm)
+      // 이벤트 발사 (필터이름 전송)
+      this.emitter.emit('getFilterNm', this.filterNm)
     }
   }
 }
