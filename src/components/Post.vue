@@ -6,7 +6,7 @@
     </div>
     <div class="post-body" :style="{ background : `url(${data.postImage})`}"></div>
     <div class="post-content">
-      <p>{{ data.likes }} Likes</p>
+      <p>{{ data.likes }} Likes</p> <!-- 슬롯으로 변경 가능 -->
       <p><strong>{{ data.name }}</strong> {{ data.content }}</p>
       <p class="date">{{ data.date }}</p>
     </div>

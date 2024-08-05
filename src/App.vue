@@ -76,7 +76,7 @@ export default {
         content: this.content,
         filter: "perpetua"
       };
-      this.data.unshift(newPost);
+      this.data.unshift(newPost); // 새로운 요소를 배열의 맨 앞에 추가
       this.step = 0; // 메인페이지로 탭변경
 
     }

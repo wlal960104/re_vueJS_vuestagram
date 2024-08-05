@@ -9,11 +9,9 @@
     <div v-if="step === 1">
       <div class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
       <div class="filters">
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
-        <div class="filter-1"></div>
+        <FilterBox :imgUrl="imgUrl" v-for="(filter,i) in filter" :key="i" :filterNm="filter">
+          <span style="color: blue"> {{ filter }} </span>
+        </FilterBox>
       </div>
     </div>
 
@@ -22,7 +20,6 @@
       <div class="upload-image" :style="`background-image: url(${imgUrl})`"></div>
       <div class="write">
         <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea>
-        <input v-model="test" type="text"> {{test}}
       </div>
     </div>
   </div>
@@ -30,17 +27,21 @@
 
 <script>
 import Post from "@/components/Post.vue";
+import FilterBox from "@/components/FilterBox.vue";
+import filter from "@/assets/filter";
 
 export default {
   name: 'Container',
   data () {
     return {
       content : 'write!', // 사용자가 입력한 글
-      test : ''
+      test : '',
+      filter
     }
   },
   components : {
-    Post
+    Post,
+    FilterBox
   },
   props : {
     data : Array,
