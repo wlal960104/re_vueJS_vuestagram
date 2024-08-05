@@ -10,6 +10,11 @@
     <img src="./assets/logo.png" class="logo"/>
   </div>
 
+  <p> methods : {{ now() }}</p>
+  <p> computed : {{ now2}}</p>
+  {{ counter }}
+  <button @click="counter++">버튼</button>
+
   <p> {{ $store.state.more }}</p>
   <button @click="$store.dispatch('getData')">더보기 버튼</button>
   <!--<h4>이름: {{ $store.state.name }}</h4>-->
@@ -44,6 +49,7 @@ export default {
       imgUrl : '',
       content : '',
       filterNm : '',
+      counter : 0
     }
   },
   components: {
@@ -89,6 +95,10 @@ export default {
       this.data.unshift(newPost); // 새로운 요소를 배열의 맨 앞에 추가
       this.step = 0; // 메인페이지로 탭변경
 
+    },
+    // 현재 시간 출력 (compted 와 비교)
+    now () {
+      return new Date()
     }
   },
   mounted() {
@@ -96,6 +106,11 @@ export default {
     this.emitter.on('getFilterNm', (data) => {
       this.filterNm = data;
     })
+  },
+  computed : {
+    now2() {
+      return new Date()
+    }
   }
 }
 </script>
