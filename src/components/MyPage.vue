@@ -59,8 +59,6 @@ export default {
     let store = useStore();
     console.log('store > ', store.state.name)
 
-
-
     onMounted(() => {
       axios.get('/follower.json').then((res) => {
         console.log('res.data > ', res.data);
@@ -71,15 +69,6 @@ export default {
         console.log('follower.value > ', follower.value);
         console.log('followerOrigin > ', followerOrigin.value);
       })
-
-      // let array = [1, 2, 3, 4, 5, 6];
-      // let a = [...array];
-      // let b = [...array];
-      // a[0] = 100
-      // console.log(' a >>> ', a);
-      // console.log(' b >>>', b)
-
-
     })
 
     return {follower, followerOrigin, test, doThis, search}
