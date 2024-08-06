@@ -23,12 +23,17 @@
       </div>
     </div>
   </div>
+
+  <div v-if="step === 3">
+    <MyPage/>
+  </div>
 </template>
 
 <script>
 import Post from "@/components/Post.vue";
 import FilterBox from "@/components/FilterBox.vue";
 import filter from "@/assets/filter";
+import MyPage from "@/components/MyPage.vue";
 
 export default {
   name: 'Container',
@@ -42,7 +47,8 @@ export default {
   },
   components : {
     Post,
-    FilterBox
+    FilterBox,
+    MyPage
   },
   props : {
     data : Array,

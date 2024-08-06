@@ -10,19 +10,19 @@
     <img src="./assets/logo.png" class="logo"/>
   </div>
 
-  <h4> {{ 내이름 }}</h4>
-  <h4> {{ age }}</h4>
+  <!--<h4> {{ 내이름 }}</h4>-->
+  <!--<h4> {{ age }}</h4>-->
 
-  <p> {{ $store.state.more }}</p>
-  <button @click="$store.dispatch('getData')">더보기 버튼</button>
-  <h4>이름: {{ $store.state.name }}</h4>
+  <!--<p> {{ $store.state.more }}</p>-->
+  <!--<button @click="$store.dispatch('getData')">더보기 버튼</button>-->
+  <!--<h4>이름: {{ $store.state.name }}</h4>-->
   <!--<button @click="$store.commit('changeNm')"> store 데이터 변경하기</button>-->
-  <button @click="changeNm()"> store 데이터 변경하기</button>
+  <!--<button @click="changeNm()"> store 데이터 변경하기</button>-->
   <!--<h4> 나이: {{ $store.state.age }}</h4>-->
   <!--<button @click="$store.commit('increaseAge', 10)"> 나이 변경하기</button>-->
 
   <Container :data="data" :step="step" :imgUrl="imgUrl" @write="content = $event"/>
-  <button @click="more" v-if=" step===0 ">더보기</button>
+  <button v-if="step === 0" @click="more">더보기</button>
 
 
   <div class="footer">
@@ -45,7 +45,7 @@ export default {
     return {
       data,
       moreNum: 0,
-      step: 0,
+      step: 3,
       imgUrl : '',
       content : '',
       filterNm : '',
