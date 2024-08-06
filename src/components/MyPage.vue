@@ -1,5 +1,6 @@
 <template>
   <!-- Composition API 실습 -->
+  {{ follower }}
   <div style="padding : 10px">
     <h4>팔로워</h4>
     <input placeholder="검색"/>
@@ -11,13 +12,37 @@
 </template>
 
 <script>
-import {onMounted, ref} from "vue";
+import {computed, onMounted, reactive, ref, toRefs, watch} from "vue";
 import axios from "axios";
+import {useStore} from "vuex";
 
 export default {
   name: 'MyPage',
-  setup() {
+  setup(props) {
     let follower = ref([]);
+    let test = reactive({name: 'kim'}) // reactive 사용
+
+    // props 사용하기
+    let {one, two} = toRefs(props);
+    console.log('one >', one.value);
+    console.log('two >', two.value);
+
+    // watch 사용하기
+    watch(one, () => {
+      // one 데이터가 변경될 때마다 실행되는 코드
+    })
+
+   // computed 사용하기
+    let num = computed(() => {
+      return '3'
+    })
+    console.log('num >', num.value)
+
+    // vuex의 store 사용하기
+    let store = useStore();
+    console.log('store > ', store.state.name)
+
+
 
     onMounted(() => {
       axios.get('/follower.json').then((res) => {
@@ -25,11 +50,15 @@ export default {
       })
     })
 
-    return {follower}
+    return {follower,test}
+  },
+  props : {
+    one : Number,
+    two : Number
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
