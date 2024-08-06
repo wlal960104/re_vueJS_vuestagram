@@ -2,8 +2,7 @@
   <!-- Composition API 실습 -->
   <div style="padding : 10px">
     <h4>팔로워</h4>
-    {{ name }}
-    <input v-model="name" placeholder="검색"/>
+    <input @input="search($event.target.value)" placeholder="검색"/>
 
     <div v-for="(a,i) in follower" :key="i" class="post-header">
       <div :style="`background-image: url(${a.image})`" class="profile"></div>
@@ -20,22 +19,10 @@ import {useStore} from "vuex";
 export default {
   name: 'MyPage',
   setup(props) {
-    // // array 테스트
-    // let arr = ['_Limvely', 'salmon_X', '360noscope'];
-    // console.log('arr > ', arr);
-    //
-    //
-    // let result = arr.filter((arr)=>{
-    //   console.log('arr > ', arr);
-    //   return arr.includes('noscope');
-    // })
-    // console.log('result > ', result)
-
-    let followerOrigin = []; // 원본 follower 저장
+    let followerOrigin = ref([]); // 원본 follower 저장
     let follower = ref([]);
 
     let test = reactive({name: 'kim'}) // reactive 사용
-    let name = ref('검색');
 
     // 함수 사용하기
     function doThis () {
@@ -43,9 +30,14 @@ export default {
     }
 
     // 유저 검색 기능
-    // function search () {
-    //
-    // }
+    function search (text) {
+      // filter 는 원본에서
+      let newFollower = followerOrigin.value.filter((arr) => {
+        return arr.name.includes(text);
+      })
+
+      follower.value = [...newFollower];
+    }
 
     // props 사용하기
     let {one, two} = toRefs(props);
@@ -53,38 +45,7 @@ export default {
     console.log('two >', two.value);
 
     // watch 사용하기
-    watch(name, (a) => {
-      if (a === '') {
-        follower.value = [...followerOrigin];
-      }
-      console.log('<<<<<<<<<<<< 변경되는 중 >>>>>>>>>>>>> ', a);
-      // 데이터가 변경될 때마다 실행되는 코드
-      let followers = [...follower.value];
-      console.log('followers >' , followers)
-
-      console.log('follower.value > ', follower.value);
-
-       followers = followers.filter((arr) => {
-        console.log('검색어 >>> ', a)
-        console.log('arr.name > ', arr.name)
-        return arr.name.includes(a);
-      })
-      if (followers.length >= 1 ){
-        follower.value = followers;
-      } else {
-        follower.value = [];
-      }
-
-
-      console.log('followers', followers);
-      console.log('followers.length',followers.length);
-
-
-      console.log('--------------------------------------')
-      console.log('followers', followers);
-      console.log('follower > ', follower.value);
-      console.log('원본 followerOrigin > ', followerOrigin)
-
+    watch(name, () => {
 
     })
 
@@ -103,17 +64,12 @@ export default {
     onMounted(() => {
       axios.get('/follower.json').then((res) => {
         console.log('res.data > ', res.data);
-        followerOrigin = [...(res.data)];
-        follower.value = [...(res.data)]
+        // array 안의 object 까지 모두 참조 다르게 하려면 다른 방법 사용해야 한다. (언더스코어 등)
+        followerOrigin.value = [...res.data]
+        follower.value = [...res.data];
 
-
-
-        // // TODO: 왜 원본 데이터 저장 안되지
-        // followerOrigin = [...res.data]; // 원본 데이터 저장
-        // follower = [...res.data]; // 데이터 담고 싶다면 변수명.value
-        // followerOrigin[0].name = 'nana';
-        // console.log('followerOrigin >>>>>>>>> ', followerOrigin);
-        // console.log('follower.value >>>>>>>>>>>', follower);
+        console.log('follower.value > ', follower.value);
+        console.log('followerOrigin > ', followerOrigin.value);
       })
 
       // let array = [1, 2, 3, 4, 5, 6];
@@ -126,7 +82,7 @@ export default {
 
     })
 
-    return {follower, test, doThis, name}
+    return {follower, followerOrigin, test, doThis, search}
   },
   props : {
     one : Number,
